@@ -15,7 +15,7 @@
 
 Damagelog:AddUser("superadmin", 4, true)
 Damagelog:AddUser("admin", 4, true)
-Damagelog:AddUser("operator", 1, false)
+Damagelog:AddUser("operator", 4, true)
 Damagelog:AddUser("user", 1, false)
 Damagelog:AddUser("guest", 1, false)
 
@@ -58,7 +58,7 @@ Damagelog.Enable_Autoslay = true
 
 -- Default autoslay reason
 
-Damagelog.Autoslay_DefaultReason = "No reason specified"
+Damagelog.Autoslay_DefaultReason = "RDM or Attempted RDM"
 
 -- The number of days the logs last on the database (to avoid lags when opening the menu)
 

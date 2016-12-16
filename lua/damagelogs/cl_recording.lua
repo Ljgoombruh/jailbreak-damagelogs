@@ -16,6 +16,7 @@ local current_spec
 local previous_spec
 local paused
 
+
 local color_effect = {
 	["$pp_colour_addr"] = 0,
 	["$pp_colour_addg" ] = 0,
@@ -230,9 +231,14 @@ hook.Add("RenderScreenspaceEffects", "DeathScene_Damagelog", function()
 	end
 end)
 
+local function IsOffScreen(pos)
+	local LocalPly = LocalPlayer()
+	return LocalPly:IsLineOfSightClear( pos ) or true
+end
+
 hook.Add("HUDPaint", "Scene_Record", function()
 	if current_scene then
-		surface.SetFont("TabLarge")
+		surface.SetFont("JBNormal")
 		for nick,model in pairs(models) do
 			if model.corpse then
 				local pos = model.pos:ToScreen()

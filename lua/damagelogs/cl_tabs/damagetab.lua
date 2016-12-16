@@ -19,7 +19,7 @@ function PANEL:SetPlayer(nick)
 	surface.SetFont("DL_Highlight")
 	local xtext, ytext = surface.GetTextSize(self.Text)
 	self:SetSize(xtext+25, ytext+4)
-	self.Close = vgui.Create("TipsButton", self)
+	/*self.Close = vgui.Create("TipsButton", self)
 	self.Close.Colors = {
 		default = COLOR_LGRAY,
 		hover = Color(0, 100, 200),
@@ -42,7 +42,7 @@ function PANEL:SetPlayer(nick)
 				break
 			end
 		end
-	end
+	end*/
 	self.SizeX = xtext + 25
 end
 
