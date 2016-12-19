@@ -224,7 +224,10 @@ function Damagelog:ReportWindow(tbl)
 	end
 	for k,v in pairs(player.GetAll()) do
 		if v == killer or v == LocalPlayer() then continue end
-		UserList:AddPlayer(v, false)
+		if team.GetName(v.team) == "Guards" then
+			UserList:AddPlayer(v, false)
+		end
+		continue
 	end
 	
 	local Label = vgui.Create("DLabel", ReportPanel)
