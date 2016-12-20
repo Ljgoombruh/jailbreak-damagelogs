@@ -51,7 +51,6 @@ local function BuildReportFrame(report)
 		local ColumnSheet = vgui.Create("DColumnSheet", ReportFrame)
 		ColumnSheet:StretchToParent(4, 28, 4, 4)
 		ColumnSheet.Navigation:SetWidth(150)
-		
 		ReportFrame.AddReport = function(ReportFrame, report)
 	
 			local current = not report.previous
@@ -224,7 +223,7 @@ function Damagelog:ReportWindow(tbl)
 	end
 	for k,v in pairs(player.GetAll()) do
 		if v == killer or v == LocalPlayer() then continue end
-		if team.GetName(v.team) == "Guards" then
+		if team.GetName(v:Team()) == "Guards" then
 			UserList:AddPlayer(v, false)
 		end
 	end
@@ -284,8 +283,8 @@ net.Receive("DL_AllowReport", function()
 	if got_tbl then
 		tbl = net.ReadTable()
 	end
-	local PlyTm = team.GetName(LocalPlayer().team)
-	if not PlyTm == "Guards" then Damagelog:ReportWindow(tbl) else chat.AddText(Color(255,0,0,255), "You cannot open the report menu as a guard. Use the admin chat (@[message]) if you think you were RDMed a previous round.") end
+	local LocTeam = LocalPlayer():Team()
+	if LocTeam == 1 or LocTeam == 1002 then Damagelog:ReportWindow(tbl) else chat.AddText(Color(255,0,0,255), "You cannot open the report menu as a guard. Use the admin chat (@[message]) if you think you were RDMed a previous round.") end
 end)
 
 net.Receive("DL_SendReport", function()

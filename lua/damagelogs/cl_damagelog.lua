@@ -50,8 +50,8 @@ local outdated = false
 		end
 	end
 end)*/
-if true then
-	local version = 1.0.2
+/*if true then
+	local version = "1.0.2"
 	local cur_version = string.Explode(".", Damagelog.VERSION)
 	local tbl = string.Explode(".", version)
 	for i=1,3 do
@@ -65,7 +65,7 @@ if true then
 	elseif tbl[1] == cur_version[1] and tbl[2] == cur_version[2] and tbl[3] > cur_version[3] then
 		outdated = true
 	end
-end
+end*/
 
 
 function Damagelog:OpenMenu()
@@ -110,7 +110,7 @@ function Damagelog:OpenMenu()
 			surface.SetFont("DermaDefault")
 			surface.SetTextColor(color_black)
 			surface.SetTextPos(_x + 5, _y+5)
-			surface.DrawText("Created by roastchicken.")
+			surface.DrawText("Edit by Ljgoombruh.")
 			surface.SetTextPos(_x + 5, _y  + 25)
       surface.DrawText("Original Damagelogs by Tommy228")
       surface.SetTextPos(_x + 5, _y  + 40)
