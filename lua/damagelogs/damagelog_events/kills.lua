@@ -11,6 +11,7 @@ local event = {}
 event.Type = "KILL"
 
 function event:DoPlayerDeath(ply, attacker, dmginfo)
+	local AtckGetRbl = ply:GetRebel()
 	if IsValid(attacker) and attacker:IsPlayer() and attacker != ply and not (attacker.IsGhost and attacker:IsGhost()) then
 		local scene = false
 		Damagelog.SceneID = Damagelog.SceneID + 1
@@ -23,7 +24,8 @@ function event:DoPlayerDeath(ply, attacker, dmginfo)
 			[5] = Damagelog:WeaponFromDmg(dmginfo),
 			[6] = ply:SteamID(),
 			[7] = attacker:SteamID(),
-			[8] = scene
+			[8] = scene,
+			[9] = AtckGetRbl
 		}
 		self.CallEvent(tbl)
 		if scene then
@@ -68,8 +70,7 @@ function event:Highlight(line, tbl, text)
 end
 
 function event:GetColor(tbl)
-	
-	if Damagelog:PossibleRDM( tbl[4] ) then
+	if (Damagelog:PossibleRDM( tbl[4] )) and (tbl[2] ~= tbl[4]) and (tbl[9] == false) then
 		return Damagelog:GetColor("Possible RDM Kills")
 	else
 		return Damagelog:GetColor("Kills")

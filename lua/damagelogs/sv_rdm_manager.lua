@@ -370,6 +370,8 @@ net.Receive("DL_ForceRespond", function(_len, ply)
 	if not tbl then return end
 	if not tbl.response then
 		local attacker = GetBySteamID(tbl.attacker)
+		local atcklive = attacker:Alive()
+		if atcklive then return end
 		if IsValid(attacker) then
 			net.Start("DL_Death")
 			net.Send(attacker)

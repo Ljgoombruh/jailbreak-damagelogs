@@ -26,7 +26,7 @@ function event:Initialize()
 end
 
 function event:PlayerTakeRealDamage(ent, dmginfo, original_dmg)
-
+	local getEntRebel = ent:GetRebel()
 	local att = dmginfo:GetAttacker()
 	if not (ent.IsGhost and ent:IsGhost()) and ent:IsPlayer() and (IsValid(att) and att:IsPlayer()) and ent != att then
 		if math.floor(original_dmg) > 0 then
@@ -39,7 +39,8 @@ function event:PlayerTakeRealDamage(ent, dmginfo, original_dmg)
 				[6] = Damagelog:WeaponFromDmg(dmginfo), 
 				[7] = ent:SteamID(), 
 				[8] = att:SteamID(), 
-				[9] = math.Round(original_dmg)
+				[9] = math.Round(original_dmg),
+				[10] = getEntRebel
 			}
 			if Damagelog:PossibleRDM( tbl[2] ) then
 				tbl.icon = { "icon16/exclamation.png" }
@@ -111,7 +112,7 @@ end
 
 function event:GetColor(tbl)
 	
-	if Damagelog:PossibleRDM( tbl[2] ) then
+	if (Damagelog:PossibleRDM( tbl[2] )) and (tbl[2] ~= tbl[4]) and (tbl[10] == false) then
 		return Damagelog:GetColor("Possible RDM Damage")
 	else
 		return Damagelog:GetColor("Damage")

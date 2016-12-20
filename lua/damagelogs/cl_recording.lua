@@ -1,5 +1,17 @@
 
-local mdl = Model("models/player/arctic.mdl")
+local prisMdl = Model("models/player/Group01/male_01.mdl")
+local grdMdl = Model("models/player/police.mdl")
+local function mdl (v,GuyTeam)
+	plyTm = team.GetName(GuyTeam)
+	if plyTm == "Guards" then
+		return grdMdl
+	elseif plyTm == "Prisoners" then
+		return prisMdl
+	else
+		print("Error, please contact Ljgoombruh and tell him he's dumb and send a screenshot.")
+		return NULL
+	end
+end
 
 CreateClientConVar("ttt_death_scene_slowmo", "0", FCVAR_ARCHIVE)
 
@@ -117,7 +129,7 @@ function Damagelog:CreateDSPanel()
 	play.Icon:Center()
 	play.Icon:SetImage("icon16/control_pause_blue.png")
 	play.DoClick = function()
-		print(paused)
+		//print(paused)
 		if paused then
 			play.Icon:SetImage("icon16/control_pause_blue.png")
 			paused = false
@@ -384,7 +396,7 @@ hook.Add("Think", "Think_Record", function()
 			end
 			if not IsValid(models[k]) then
 				if not v.corpse then
-					models[k] = ClientsideModel(mdl, RENDERGROUP_TRANSLUCENT)
+					models[k] = ClientsideModel(mdl(k, v.team), RENDERGROUP_TRANSLUCENT)
 					models[k]:AddEffects(EF_NODRAW)
 					models[k].team = v.team
 				else

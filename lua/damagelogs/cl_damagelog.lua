@@ -29,7 +29,7 @@ include("damagelogs/sh_chat.lua")
 include("damagelogs/cl_chat.lua")
 
 local outdated = false
-http.Fetch("https://api.github.com/repos/thatoneprogrammerkid/jailbreak-damagelogs/contents/version.md?ref=master", function(body)
+/*http.Fetch("https://api.github.com/repos/thatoneprogrammerkid/jailbreak-damagelogs/contents/version.md?ref=master", function(body)
 	local content = util.JSONToTable(body)
 	if not content then return end
 	local version = content.content
@@ -49,7 +49,24 @@ http.Fetch("https://api.github.com/repos/thatoneprogrammerkid/jailbreak-damagelo
 			outdated = true
 		end
 	end
-end)
+end)*/
+/*if true then
+	local version = "1.0.2"
+	local cur_version = string.Explode(".", Damagelog.VERSION)
+	local tbl = string.Explode(".", version)
+	for i=1,3 do
+		tbl[i] = tonumber(tbl[i])
+		cur_version[i] = tonumber(cur_version[i])
+	end
+	if tbl[1] > cur_version[1] then
+		outdated = true
+	elseif tbl[1] == cur_version[1] and tbl[2] > cur_version[2] then
+		outdated = true
+	elseif tbl[1] == cur_version[1] and tbl[2] == cur_version[2] and tbl[3] > cur_version[3] then
+		outdated = true
+	end
+end*/
+
 
 function Damagelog:OpenMenu()
 	local x,y = 665, 680
@@ -110,7 +127,7 @@ function Damagelog:OpenMenu()
 	end
 	if outdated then
 		local info = vgui.Create("Damagelog_InfoLabel", self.Menu);
-		info:SetText("Server owners : this version is outdated! You can get the latest one on http://github.com/thatoneprogrammerkid/jailbreak-damagelogs");
+		info:SetText("Server owners : this version is outdated! You can get the latest one on https://github.com/Ljgoombruh/jailbreak-damagelogs");
 		info:SetInfoColor("blue");
 		info:SetPos(5,30);
 		info:SetSize(x-10, 25);		
@@ -184,7 +201,7 @@ net.Receive("DL_Ded", function()
 	
 		local frame = vgui.Create("DFrame")
 		frame:SetSize(250, 120)
-		frame:SetTitle("(note : you can disable this popup on F1)")
+		frame:SetTitle("(note : you currently cannot disable this popup)")
 		frame:ShowCloseButton(false)
 		frame:Center()
 	
