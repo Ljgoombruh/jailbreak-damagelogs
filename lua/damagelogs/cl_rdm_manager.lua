@@ -227,7 +227,6 @@ function Damagelog:ReportWindow(tbl)
 		if team.GetName(v.team) == "Guards" then
 			UserList:AddPlayer(v, false)
 		end
-		continue
 	end
 	
 	local Label = vgui.Create("DLabel", ReportPanel)
