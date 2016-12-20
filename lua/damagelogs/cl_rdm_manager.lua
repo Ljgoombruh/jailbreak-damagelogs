@@ -284,7 +284,8 @@ net.Receive("DL_AllowReport", function()
 	if got_tbl then
 		tbl = net.ReadTable()
 	end
-	Damagelog:ReportWindow(tbl)
+	local PlyTm = team.GetName(LocalPlayer().team)
+	if not PlyTm == "Guards" then Damagelog:ReportWindow(tbl) else chat.AddText(Color(255,0,0,255), "You cannot open the report menu as a guard. Use the admin chat (@[message]) if you think you were RDMed a previous round.") end
 end)
 
 net.Receive("DL_SendReport", function()

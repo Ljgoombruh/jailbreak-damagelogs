@@ -129,7 +129,7 @@ function Damagelog:CreateDSPanel()
 	play.Icon:Center()
 	play.Icon:SetImage("icon16/control_pause_blue.png")
 	play.DoClick = function()
-		print(paused)
+		//print(paused)
 		if paused then
 			play.Icon:SetImage("icon16/control_pause_blue.png")
 			paused = false
