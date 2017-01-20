@@ -528,7 +528,7 @@ net.Receive("DL_StopChat", function()
 	end	
 	
 end)
-	
+
 
 hook.Add("HUDPaint", "Damagelog_Chat", function()
 
@@ -538,7 +538,7 @@ hook.Add("HUDPaint", "Damagelog_Chat", function()
 		local w, h = ScrW()/2, ScrH() - 50
 			
 		if not drawing and #Damagelog.CurrentChats > 0 then
-			//TIPS.Hide()
+			JB.showHintsSpec = false
 			drawing = true
 			if Damagelog.ChatButton then
 				Damagelog.ChatButton:Remove()
@@ -558,9 +558,9 @@ hook.Add("HUDPaint", "Damagelog_Chat", function()
 				show_chats = not show_chats
 			end
 		elseif drawing and #Damagelog.CurrentChats == 0 then
-			//if LocalPlayer():IsSpec() then
-				//TIPS.Show()
-			//end
+			if LocalPlayer():Team() ~= TEAM_GUARD and LocalPlayer():Team() ~= TEAM_PRISONER then
+				JB.showHintsSpec = true
+			end
 			drawing = false
 			Damagelog.ChatButton:Remove()
 		end
