@@ -250,7 +250,7 @@ end
 
 hook.Add("HUDPaint", "Scene_Record", function()
 	if current_scene then
-		surface.SetFont("JBNormal")
+		surface.SetFont("Default")
 		for nick,model in pairs(models) do
 			if model.corpse then
 				local pos = model.pos:ToScreen()
@@ -264,10 +264,11 @@ hook.Add("HUDPaint", "Scene_Record", function()
 				local w,h = surface.GetTextSize(text)
 				surface.SetTextPos(pos.x - w/2, pos.y)
 				surface.DrawText(text)
-			else
+			end
+			
 				local pos = model:GetPos() + Vector(0, 0, 100)
 				pos = pos:ToScreen()
-				if IsOffScreen(pos) then continue end
+				//if IsOffScreen(pos) then continue end
 				local wep = model.wep
 				if wep then
 					local name = Damagelog.weapon_table[wep]
@@ -277,18 +278,24 @@ hook.Add("HUDPaint", "Scene_Record", function()
 				else
 					wep = "<No weapon>"
 				end
-				local w,h = surface.GetTextSize(wep)
+				local w,h = surface.GetTextSize(nick)
 				surface.SetTextColor(color_white)
-				surface.SetTextPos(pos.x - w/2, pos.y)
+				surface.SetTextPos(pos.x - w/2, pos.y-h+10)
 				surface.DrawText(wep)
-				local _, healthcolor = util.HealthToString(model.hp or 100)
-				nick = nick.." ["..Damagelog:StrTeam(model.team).."]"
-				local w2,h2 = surface.GetTextSize(nick)
-				surface.SetTextColor(healthcolor)
-				surface.SetTextPos(pos.x - w2/2, pos.y - h2 - 5)
-				surface.DrawText(nick)
+				if Damagelog:StrTeam(model.team) == "prisoner" then
+					nick = nick.." ["..Damagelog:StrTeam(model.team).."]"
+					local w2,h2 = surface.GetTextSize(nick)
+					surface.SetTextColor(255,0,0)
+					surface.SetTextPos(pos.x - w2/2, pos.y - h2 - 5)
+					surface.DrawText(nick)
+				else
+					nick = nick.." ["..Damagelog:StrTeam(model.team).."]"
+					local w2,h2 = surface.GetTextSize(nick)
+					surface.SetTextColor(0,0,255)
+					surface.SetTextPos(pos.x - w2/2, pos.y - h2 - 5)
+					surface.DrawText(nick)
+				end
 			end
-		end
 		return
 	end
 
